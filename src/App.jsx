@@ -1,22 +1,26 @@
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
+import graphql from 'babel-plugin-relay/macro';
 import { useQueryLoader } from 'react-relay/hooks';
 
-import Repo from './components/Repo';
-import { RepositoryNameQuery } from './queries/github';
+import RepoPage from './components/RepoPage';
 
 const App = () => {
-  const [queryReference, loadQuery] = useQueryLoader(RepositoryNameQuery);
-
-  const [name, setName] = useState('');
+  const [queryReference, loadQuery] = useQueryLoader(graphql`
+  query AppQuery {
+    repository(owner: "facebook", name: "relay") {
+      owner {
+        id
+      }
+      ...RepoId_id,
+      ...RepoName_name
+    }
+  }`);
 
   return (
     <>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
-      <button type="button" onClick={() => loadQuery({ name })}>
-        Load
-      </button>
+      <button type="button" onClick={() => loadQuery()}>Load</button>
       <Suspense fallback="Loading...">
-        {(queryReference !== null) ? <Repo queryReference={queryReference} /> : null}
+        {(queryReference !== null) ? <RepoPage queryRef={queryReference} /> : null}
       </Suspense>
     </>
   );
