@@ -20,5 +20,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
+    'no-unused-vars': 'off',
   },
 };
