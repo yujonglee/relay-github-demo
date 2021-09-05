@@ -11,7 +11,7 @@ const App = () => {
       owner {
         id
       }
-      ...RepoId_id,
+      ...RepoId_id
       ...RepoName_name
     }
   }`);

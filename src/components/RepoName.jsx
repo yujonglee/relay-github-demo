@@ -2,7 +2,7 @@ import { useFragment } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
 
 const RepoName = ({ queryRef }) => {
-  const { name } = useFragment(graphql`
+  const data = useFragment(graphql`
     fragment RepoName_name on Repository {
         name
     }`,
@@ -10,9 +10,9 @@ const RepoName = ({ queryRef }) => {
 
   return (
     <p>
-      Name:
+      Repo Name:
       {' '}
-      {name}
+      {data ? data.name : 'Not found'}
     </p>
   );
 };

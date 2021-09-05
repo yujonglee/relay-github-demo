@@ -10,17 +10,21 @@ const RepoPage = ({ queryRef }) => {
       repository(owner: "facebook", name: "relay") {
         owner {
           id
-        },
-        ...RepoId_id,
+        }
+        ...RepoId_id
         ...RepoName_name
       }
     }`, queryRef);
 
   return (
     <>
-      <p>{repository?.owner?.id ?? 'Not found'}</p>
-      <RepoId queryRef={repository} />
-      <RepoName queryRef={repository} />
+      <p>
+        Owner ID :
+        {' '}
+        {repository?.owner?.id ?? 'Not found'}
+      </p>
+      <RepoId queryRef={repository?.id} />
+      <RepoName queryRef={repository?.name} />
     </>
   );
 };
